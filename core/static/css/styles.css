@@ -1,0 +1,256 @@
+/* General Styling */
+:root {
+    --primary-color: #5b72da;
+    --secondary-color: #48236e;
+    --background-color: #e0e4eb;
+    --card-bg: #f5f5f5;
+    --text-color: #333;
+    --text-muted: #6c757d;
+    --font-family: 'Poppins', sans-serif;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+body {
+    font-family: var(--font-family);
+    background: linear-gradient(110deg, var(--primary-color) 0%, var(--secondary-color) 90%);
+    background-attachment: fixed;
+    color: var(--text-color);
+    margin: 0;
+    padding-top: 100px;
+    /* Space for navbar */
+
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px 20px 10px 20px
+}
+
+/* Navbar */
+.navbar {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e0e0e0;
+    padding: 2px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand img {
+    height: 50px;
+    width: auto;
+    vertical-align: middle;
+    margin-left: -70px;
+    margin-right: 3px;
+    margin-bottom: 5px;
+}
+
+.navbar-brand {
+    font-family: "Kavoon", serif;
+    font-weight: 500;
+    font-size: 2.5em;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.nav-links a,
+.logout-btn {
+    color: var(--text-color);
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.logout-btn:hover {
+    color: #e0245e;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.logout-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1em;
+}
+
+/* Cards */
+.card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+/* Buttons */
+.btn {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #e9ecef;
+    color: var(--text-color);
+}
+
+.btn-secondary:hover {
+    background: #d4d9de;
+}
+
+/* Forms */
+.post-form-container textarea,
+.auth-form input,
+.comment-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #c6c4c4;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.auth-form p {
+    margin-bottom: 10px;
+}
+
+.auth-form {
+    max-width: 450px;
+    margin: 40px auto;
+}
+
+.auth-form h2 {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+}
+
+/* Feed & Posts */
+.feed h2 {
+    color: #ededed;
+}
+
+.avatar-small {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.post-header a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.post-header small {
+    color: var(--text-muted);
+    display: block;
+}
+
+.post-content p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.post-footer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.like-btn,
+.comment-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+}
+
+.like-btn .fas.fa-heart {
+    color: #e0245e;
+}
+
+/* Profile Page */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid white;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.profile-stats {
+    display: flex;
+    gap: 25px;
+    margin: 15px 0;
+}
+
+.bio {
+    color: var(--text-muted);
+}
+
+.follow-btn {
+    margin-top: 10px;
+}
+
+/* Comments */
+.comment-form textarea {
+    height: 60px;
+}
+
+.comment {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+
+.comment:last-child {
+    border-bottom: none;
+}

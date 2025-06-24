@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Home Feed{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="post-form-container card">
+        <h3>Create a new Vibe</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ post_form.as_p }}
+            <button type="submit" class="btn btn-primary">Post</button>
+        </form>
+    </div>
+
+    <div class="feed">
+        <h2>Your Feed</h2>
+        {% for post in posts %}
+        <div class="post-card card">
+            <div class="post-header">
+                <img src="{{ post.author.profile.profile_pic.url }}" class="avatar-small">
+                <div>
+                    <strong><a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></strong>
+                    <small class="text-muted">{{ post.created_at|timesince }} ago</small>
+                </div>
+            </div>
+            <div class="post-content">
+                <p>{{ post.content }}</p>
+            </div>
+            <div class="post-footer">
+                <button class="like-btn" data-post-id="{{ post.id }}">
+                    <i class="fa-heart {% if user in post.likes.all %}fas{% else %}far{% endif %}"></i>
+                    <span id="likes-count-{{ post.id }}">{{ post.likes.count }}</span>
+                </button>
+                <a href="{% url 'post_detail' post.id %}" class="comment-btn">
+                    <i class="far fa-comment"></i> {{ post.comments.count }}
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <p class="card">Your feed is empty. Follow some users to see their posts!</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

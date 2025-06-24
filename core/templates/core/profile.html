@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}{{ profile_user.username }}'s Profile{% endblock %}
+
+{% block content %}
+
+{# Profile Header: Displays user avatar, info, stats, and action buttons #}
+<div class="profile-header card">
+    <img src="{{ profile.profile_pic.url }}" alt="{{ profile_user.username }}" class="profile-avatar">
+    <div class="profile-info">
+        <h2>{{ profile_user.username }}</h2>
+        <p class="bio">{{ profile.bio }}</p>
+        <div class="profile-stats">
+            <span><strong>{{ posts.count }}</strong> posts</span>
+            <span><strong id="followers-count">{{ followers_count }}</strong> followers</span>
+            <span><strong>{{ following_count }}</strong> following</span>
+        </div>
+
+        {% if user == profile_user %}
+        <a href="{% url 'edit_profile' %}" class="btn btn-secondary" style="margin-top: 10px;">Edit Profile</a>
+        {% elif user.is_authenticated %}
+        <button class="follow-btn btn {% if is_following %}btn-secondary{% else %}btn-primary{% endif %}"
+            data-user-id="{{ profile_user.id }}">
+            {% if is_following %}Unfollow{% else %}Follow{% endif %}
+        </button>
+        {% endif %}
+    </div>
+</div>
+
+{# User's Post Feed: Lists all posts by the profile user #}
+<div class="feed">
+    <h2>Posts by {{ profile_user.username }}</h2>
+    {% for post in posts %}
+    <div class="post-card card">
+        <div class="post-content">
+            <p>{{ post.content }}</p>
+        </div>
+        <div class="post-footer">
+            <span>
+                <i class="fas fa-heart"></i> {{ post.likes.count }}
+            </span>
+            <a href="{% url 'post_detail' post.id %}" class="comment-btn">
+                <i class="far fa-comment"></i> {{ post.comments.count }}
+            </a>
+            <small class="text-muted">{{ post.created_at|timesince }} ago</small>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
