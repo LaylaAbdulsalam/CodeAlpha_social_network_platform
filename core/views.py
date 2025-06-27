@@ -70,6 +70,12 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
 
+# View to display a list of all users to discover
+@login_required
+def discover_users(request):
+    #getting all users from the database, excludeing the current logged-in user
+    users = User.objects.exclude(id=request.user.id)
+    return render(request, 'core/discover.html', {'users': users})
 
 # View for editing the current user's profile
 @login_required

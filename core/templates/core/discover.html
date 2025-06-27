@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Discover Users{% endblock %}
+
+{% block content %}
+<div class="discover-container">
+    <h2 style="text-align: center; color: white; margin-bottom: 25px;">Discover Other Users</h2>
+
+    {% for user_to_discover in users %}
+    <div class="profile-header card" style="flex-direction: row; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center;">
+            <img src="{{ user_to_discover.profile.profile_pic.url }}" alt="{{ user_to_discover.username }}"
+                class="avatar-small" style="width: 60px; height: 60px;">
+            <div style="margin-left: 15px;">
+                <strong>{{ user_to_discover.username }}</strong>
+                <p class="text-muted" style="margin: 0;">{{ user_to_discover.profile.bio|truncatechars:50 }}</p>
+            </div>
+        </div>
+        <a href="{% url 'profile' user_to_discover.username %}" class="btn btn-primary">View Profile</a>
+    </div>
+    {% empty %}
+    <div class="card" style="text-align: center;">
+        <p>No other users to discover yet. Invite your friends!</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
