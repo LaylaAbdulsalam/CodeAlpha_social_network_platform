@@ -1,4 +1,71 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+
+    // Creates a continuous, dynamic, and random floating animation for background icons.
+
+    function animateBackground() {
+        const iconContainer = document.querySelector('.background-icons');
+        if (!iconContainer) return;
+
+        const icons = Array.from(iconContainer.querySelectorAll('i'));
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+
+        // Create a state object for each icon to manage all its properties
+        const iconStates = icons.map(icon => {
+            const lifespan = (Math.random() * 10 + 8) * 60; // Total life in frames (8-18 seconds)
+            return {
+                element: icon,
+                x: Math.random() * screenWidth,
+                y: Math.random() * screenHeight,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                size: Math.random() * 55 + 25,
+                age: Math.random() * lifespan, // Start at a random point in its life
+                lifespan: lifespan
+            };
+        });
+
+        // The main animation loop that runs on every frame
+        function animationLoop() {
+            iconStates.forEach(state => {
+                // Update age and position
+                state.age++;
+                state.x += state.vx;
+                state.y += state.vy;
+
+                // --- Calculate opacity based on age (The Fade Effect) ---
+                const lifePercent = state.age / state.lifespan;
+                let opacity = 0;
+                if (lifePercent < 0.5) {
+                    // Fading In
+                    opacity = lifePercent * 2 * 0.6; // 0.6 is max opacity
+                } else {
+                    // Fading Out
+                    opacity = (1 - lifePercent) * 2 * 0.6;
+                }
+                state.element.style.opacity = opacity;
+
+                // Apply the new position and initial size
+                state.element.style.fontSize = `${state.size}px`;
+                state.element.style.transform = `translate(${state.x}px, ${state.y}px)`;
+
+                // --- Reset icon when its life ends ---
+                if (state.age >= state.lifespan) {
+                    state.age = 0;
+                    state.x = Math.random() * screenWidth;
+                    state.y = Math.random() * screenHeight;
+                }
+            });
+
+            requestAnimationFrame(animationLoop);
+        }
+
+        animationLoop();
+    }
+
+    animateBackground();
+
     // Function to get CSRF token from cookies
     function getCookie(name) {
         let cookieValue = null;
